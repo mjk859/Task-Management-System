@@ -1,0 +1,58 @@
+*{
+    padding: 0;
+  margin: 0;
+  
+}
+body {
+    background-color: #E8ECEF;
+    margin: 0;
+}
+  
+.centered {
+      padding-top: 200px;
+      text-align: center;
+      
+}
+.container {
+    margin-top: 50px;
+}
+  
+.secret-text {
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    background-color: #000;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    padding: 10px;
+}
+.header {
+    background-color: #f0f0f0;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+}
+nav{
+    justify-content: normal;
+}
+.registerButton{
+    position: absolute;
+    right: 10px;
+    bottom: 18px;
+}
+.loginButton{
+    position: absolute;
+    right: 86px;
+    bottom: 18px;
+}
+.navContents{
+    margin: 12px;
+    display: flex;
+}
