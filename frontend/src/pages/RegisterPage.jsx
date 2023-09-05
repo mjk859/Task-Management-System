@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/authSlice";
 
 function RegisterPage() {
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     userName: "",
     userEmail: "",
@@ -17,13 +20,14 @@ function RegisterPage() {
     });
   }
   function handleClick(event) {
-    console.log(user.userName, user.userEmail, user.userPassword);
-    setUser({
-        userName:"",
-        userEmail:"",
-        userPassword:""
-    })
-        event.preventDefault();
+    event.preventDefault();
+    dispatch(
+      register({
+        username: user.username, //user is the useState hook
+        password: user.password,
+        email: user.email,
+      })
+    )
   }
   return (
     <div className="centered container jumbotron">

@@ -1,12 +1,37 @@
 const User = require('../index');
 const jwt = require('jsonwebtoken');
 const validator = require('email-validator');
+const { response } = require('express');
 
-const signin = (req, res) => {
+const login = async(req, res) => {
     let { email, password } = req.body;
+    try {
+        let user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).send("User not found");
+        }
+
+        user.comparePassword(password, (err, match) => {
+            if(!match || err) {
+                return res.status(400).send("Password does not match");
+            }
+            let token = jwt.sign({ _id: user._id }, 'qwertyuiop', { expiresIn: '24h'});
+            response.status(200).send({
+
+                token,
+                username: user.username,
+                email: user.email,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+            });
+        });
+    } catch (error) {
+        return response.status(400).send('login failed: ');
+    }
 };
 
 const register = async (req, res) => {
+    console.log(req.body, 'request');
     const { email, password, username } = req.body;
     try {
         if(!username) return res.status(400).send("Username must be provided");
@@ -29,4 +54,9 @@ const register = async (req, res) => {
     } catch (error) {
         return res.status(400).send("Error creating user: " + error.message);
     }
+};
+
+module.exports = {
+    login,
+    register,
 };
