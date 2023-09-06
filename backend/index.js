@@ -4,13 +4,16 @@ const bodyParser = require("body-parser");
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const authRoutes = require('../backend/routes/authRoutes');
+var morgan = require('morgan')
 
 const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use('auth', authRoutes);
+app.use(morgan('dev'));
+app.use(express.json());
+app.use('/auth', authRoutes);
 
 mongoose.connect(
   "mongodb+srv://admin-jaseel:VVzw3hMS0UMMsJRU@cluster0.o1fsbhk.mongodb.net/taskManagerDB"
