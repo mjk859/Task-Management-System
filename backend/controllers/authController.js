@@ -16,7 +16,7 @@ const login = async(req, res) => {
                 return res.status(400).send("Password does not match");
             }
             let token = jwt.sign({ _id: user._id }, 'qwertyuiop', { expiresIn: '24h'});
-            response.status(200).send({
+            res.status(200).send({
 
                 token,
                 username: user.username,

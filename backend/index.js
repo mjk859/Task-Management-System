@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -6,14 +7,16 @@ const cors = require('cors');
 const authRoutes = require('../backend/routes/authRoutes');
 var morgan = require('morgan')
 
+
 const app = express();
-const port = 3001;
+const port = 1337;
 
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/auth', authRoutes);
+
 
 mongoose.connect(
   "mongodb+srv://admin-jaseel:VVzw3hMS0UMMsJRU@cluster0.o1fsbhk.mongodb.net/taskManagerDB"
@@ -27,6 +30,7 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 
 userSchema.pre('save', function (next) {
     let user = this
@@ -49,11 +53,12 @@ userSchema.methods.comparePassword = function (password, next) {
         if(err){
             return next(err, false);
         }
-        return(null, match);
+        return next(null, match);
     })
 };
 
 const User = mongoose.model("User", userSchema);
+
 module.exports = User;
 
 const taskSchema = new mongoose.Schema({
@@ -67,10 +72,6 @@ const Task = mongoose.model("Task", taskSchema);
 
 app.get("/", (req, res) => {
   res.send("Welcome");
-});
-
-app.get("/register", (req, res) => {
-  res.send("register page");
 });
 
 app.listen(port, (req, res) => {

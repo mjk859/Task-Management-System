@@ -70,6 +70,8 @@ function RegisterPage() {
           Register
         </button>
       </form>
+      
+    
     </div>
   );
 }
