@@ -1,79 +1,46 @@
 require('dotenv').config();
 const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const bcrypt = require('bcryptjs');
-const cors = require('cors');
-const authRoutes = require('../backend/routes/authRoutes');
-var morgan = require('morgan')
-
-
 const app = express();
-const port = 1337;
+const cors = require('cors');
+// const mongoose = require("mongoose");
 
-app.use(bodyParser.json());
 app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
-app.use('/auth', authRoutes);
+app.use(express.json()); //anything that comes as body into json
+
+// mongoose.connect(
+//   "mongodb+srv://admin-jaseel:VVzw3hMS0UMMsJRU@cluster0.o1fsbhk.mongodb.net/taskManagerDB"
+// );
+
+// const userSchema = new mongoose.Schema(
+//   {
+//     username: String,
+//     email: String,
+//     password: String,
+//   },
+// );
 
 
-mongoose.connect(
-  "mongodb+srv://admin-jaseel:VVzw3hMS0UMMsJRU@cluster0.o1fsbhk.mongodb.net/taskManagerDB"
-);
-
-const userSchema = new mongoose.Schema(
-  {
-    username: String,
-    email: String,
-    password: String,
-  },
-  { timestamps: true }
-);
 
 
-userSchema.pre('save', function (next) {
-    let user = this
-    if(user.isModified('password')){
-        return bcrypt.hash(user.password, 12, function (err, hash){
-            if(err){
-                return next(err);
-            }
-            user.password = hash;
-            return next();
-        })
-    
-    } else {
-        return next();
-    }
+
+
+// const User = mongoose.model("User", userSchema);
+
+
+// const taskSchema = new mongoose.Schema({
+//   title: String,
+//   description: String,
+//   dueDate: String,
+//   status: String,
+//   assignedUser: String,
+// });
+// const Task = mongoose.model("Task", taskSchema);
+
+app.post("/api/register", (req, res) => {
+  console.log(req.body);
+  res.json({ status: 'Ok' });
 });
 
-userSchema.methods.comparePassword = function (password, next) {
-    bcrypt.compare(password, this.password, function (err, match) {
-        if(err){
-            return next(err, false);
-        }
-        return next(null, match);
-    })
-};
-
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
-
-const taskSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  dueDate: String,
-  status: String,
-  assignedUser: String,
-});
-const Task = mongoose.model("Task", taskSchema);
-
-app.get("/", (req, res) => {
-  res.send("Welcome");
-});
-
-app.listen(port, (req, res) => {
-  console.log("listening on port", port);
+app.listen(1337, (req, res) => {
+  console.log("listening on port 1337");
 });

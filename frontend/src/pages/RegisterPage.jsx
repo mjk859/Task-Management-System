@@ -1,14 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { register } from "../redux/authSlice";
 
 function RegisterPage() {
-  const dispatch = useDispatch();
   const [user, setUser] = useState({
-    userName: "",
-    userEmail: "",
-    userPassword: "",
+    name: "",
+    email: "",
+    password: "",
   });
   function handleChange(event) {
     const { name, value } = event.target;
@@ -19,15 +16,23 @@ function RegisterPage() {
       };
     });
   }
-  function handleClick(event) {
-    event.preventDefault();
-    dispatch(
-      register({
-        username: user.username, //user is the useState hook
-        password: user.password,
+  async function handleClick(event) {
+    event.preventDefault();    
+    //It is the connection between frontend and backend
+    const response = await fetch('http://localhost:1337/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',  //content type can be bitwise,etc...
+      },
+      body: JSON.stringify({
+        name: user.name,
         email: user.email,
-      })
-    )
+        password: user.password
+      }),
+    }) 
+    const data = await response.json();
+    console.log(data);
+    
   }
   return (
     <div className="centered container jumbotron">
@@ -39,8 +44,8 @@ function RegisterPage() {
             type="text"
             placeholder="Enter your name..."
             className="form-control"
-            name="userName"
-            value={user.userName}
+            name="name"
+            value={user.name}
             onChange={handleChange}
           />
         </div>
@@ -50,8 +55,8 @@ function RegisterPage() {
             type="email"
             placeholder="Enter your email..."
             className="form-control"
-            name="userEmail"
-            value={user.userEmail}
+            name="email"
+            value={user.email}
             onChange={handleChange}
           />
         </div>
@@ -61,8 +66,8 @@ function RegisterPage() {
             type="password"
             placeholder="Enter your password..."
             className="form-control"
-            name="userPassword"
-            value={user.userPassword}
+            name="password"
+            value={user.password}
             onChange={handleChange}
           />
         </div>
