@@ -3,8 +3,8 @@ import { useState } from "react";
 
 const LoginPage = () => {
   const [user, setUser] = useState({
-    userEmail: "",
-    userPassword: "",
+    email: "",
+    password: "",
   });
   function handleChange(event) {
     const { name, value } = event.target;
@@ -15,10 +15,29 @@ const LoginPage = () => {
       };
     });
   }
+
+  async function handleSubmit(event) {
+    event.preventDefault();    
+    //It is the connection between frontend and backend
+    const response = await fetch('http://localhost:1337/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',  //content type can be bitwise,etc...
+      },
+      body: JSON.stringify({
+        email: user.email,
+        password: user.password
+      }),
+    }) 
+    const data = await response.json();
+    console.log(data);
+  }
+
   return (
     <div class="centered container jumbotron">
       <h1>Login</h1>
-      <form>
+      <form onSubmit={handleSubmit}> 
+      {/* we can do this way also another way is in register page */}
         <div class="form-group row">
           <label>Email</label>
           <input
