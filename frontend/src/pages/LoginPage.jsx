@@ -6,6 +6,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  
   function handleChange(event) {
     const { name, value } = event.target;
     setUser((prevUser) => {
@@ -30,7 +31,12 @@ const LoginPage = () => {
       }),
     }) 
     const data = await response.json();
-    console.log(data);
+    if (data.user) {
+      alert('login success ');
+      window.location.href = "/dashboard"
+    } else {
+      alert('Please check your username and password.');
+    }
   }
 
   return (
@@ -44,8 +50,8 @@ const LoginPage = () => {
             type="email"
             class="form-control"
             placeholder="Enter your email..."
-            name="userEmail"
-            value={user.userEmail}
+            name="email"
+            value={user.email}
             onChange={handleChange}
           />
         </div>
@@ -55,8 +61,8 @@ const LoginPage = () => {
             type="password"
             class="form-control"
             placeholder="Enter your password..."
-            name="userPassword"
-            value={user.userPassword}
+            name="password"
+            value={user.password}
             onChange={handleChange}
           />
         </div>
