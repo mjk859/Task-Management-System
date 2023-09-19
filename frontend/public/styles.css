@@ -57,3 +57,27 @@ nav{
     margin: 12px;
     display: flex;
 }
+
+.dashNav{
+    padding: 20px;
+    background-color: #E8ECEF;
+}
+
+
+
+.profile{
+    position: absolute;
+    right: 40px;
+}
+
+.addIcon{
+    position: absolute;
+    right: 75px;
+    bottom: -6px
+}
+.hide{
+    display:none;
+}
+.show{
+    display:block;
+}
