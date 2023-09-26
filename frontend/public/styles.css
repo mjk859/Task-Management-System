@@ -81,3 +81,93 @@ nav{
 .show{
     display:block;
 }
+
+/* MODAL STYLES
+-------------------------------*/
+.jw-modal {
+    /* modal container fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* z-index must be higher than .modal-background */
+    z-index: 1000;
+    
+    /* enables scrolling for tall modals */
+    overflow: auto;
+
+    .jw-modal-body {
+        padding: 20px;
+        background: #fff;
+
+        /* margin exposes part of the modal background */
+        margin: 40px;
+    }
+}
+
+.jw-modal-background {
+    /* modal background fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* semi-transparent black  */
+    background-color: #000;
+    opacity: 0.75;
+    
+    /* z-index must be below .modal and above everything else  */
+    z-index: 900;
+}
+
+body.jw-modal-open {
+    /* body overflow is hidden to hide main scrollbar when modal window is open */
+    overflow: hidden;
+}
+
+.task-list {
+    position: absolute;
+    top: 100px;
+    left: 30px;
+}
+
+.task-form {
+    display: block;
+    
+    border-radius: 20px;
+    padding: 20px;
+    position: absolute;
+    top: 100px;
+    right: 30px;
+    height: 270px;
+}
+
+.taskFormHeading {
+    text-align: center;
+}
+
+.taskFormButton {
+    margin: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    width: 70%;
+    
+}
+
+table{
+    background-color: gray;
+    border-radius: 20px;
+}
+td {
+    padding: 10px;
+}
+
+.taskNameInput {
+    border-radius: 10px;
+}
+.textarea {
+    border-radius: 10px;
+}
